@@ -1,0 +1,7 @@
+alpaca-trade-api==3.3.2
+yfinance==0.2.40
+pandas==2.2.2
+numpy==1.26.4
+schedule==1.2.2
+pytz==2024.1
+twilio==9.2.3

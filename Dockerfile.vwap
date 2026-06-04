@@ -1,0 +1,8 @@
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY shared_notify.py .
+COPY trade_logger.py .
+COPY vwap_trading_bot.py .
+CMD ["python", "-u", "vwap_trading_bot.py"]
