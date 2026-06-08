@@ -56,8 +56,14 @@ def calculate_rsi(series, period=7):
     rs    = gain / loss
     return 100 - (100 / (1 + rs))
 
-def if is_market_open():
-    check_vwap_signals():
+def is_market_open():
+    et  = pytz.timezone('America/New_York')
+    now = datetime.now(et)
+    if now.weekday() >= 5:
+        return False
+    return now.replace(hour=9, minute=45, second=0) <= now <= now.replace(hour=15, minute=30, second=0)
+
+def check_vwap_signals():
     print(f"\n{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} — VWAP check")
     try:
         positions    = api.list_positions()
@@ -167,15 +173,8 @@ def eod_close():
     except:
         pass
 
-def is_market_open():
-    et  = pytz.timezone('America/New_York')
-    now = datetime.now(et)
-    if now.weekday() >= 5:
-        return False
-    return now.replace(hour=9, minute=45, second=0) <= now <= now.replace(hour=15, minute=30, second=0)
-
 def run_if_market_open():
-    et  = pytz.timezone("America/New_York")
+    et  = pytz.timezone('America/New_York')
     now = datetime.now(et)
     if now.weekday() >= 5:
         return
@@ -186,7 +185,7 @@ def run_if_market_open():
     if is_market_open():
         check_vwap_signals()
     else:
-        print(f"{datetime.now().strftime(chr(37)+'H:'+chr(37)+'M:'+chr(37)+'S')} — Market closed")
+        print(f"{datetime.now().strftime('%H:%M:%S')} — Market closed")
 
 print("VWAP Mean Reversion Bot — Starting up")
 if is_market_open():
