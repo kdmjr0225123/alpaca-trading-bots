@@ -175,7 +175,7 @@ def is_market_open():
     return now.replace(hour=9, minute=45, second=0) <= now <= now.replace(hour=15, minute=30, second=0)
 
 def run_if_market_open():
-    et  = pytz.timezone('America/New_York')
+    et  = pytz.timezone("America/New_York")
     now = datetime.now(et)
     if now.weekday() >= 5:
         return
@@ -184,10 +184,9 @@ def run_if_market_open():
         eod_close()
         return
     if is_market_open():
-        if is_market_open():
-    check_vwap_signals()
+        check_vwap_signals()
     else:
-        print(f"{datetime.now().strftime('%H:%M:%S')} — Market closed")
+        print(f"{datetime.now().strftime(chr(37)+'H:'+chr(37)+'M:'+chr(37)+'S')} — Market closed")
 
 print("VWAP Mean Reversion Bot — Starting up")
 if is_market_open():
