@@ -56,7 +56,8 @@ def calculate_rsi(series, period=7):
     rs    = gain / loss
     return 100 - (100 / (1 + rs))
 
-def check_vwap_signals():
+def if is_market_open():
+    check_vwap_signals():
     print(f"\n{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} — VWAP check")
     try:
         positions    = api.list_positions()
@@ -183,12 +184,14 @@ def run_if_market_open():
         eod_close()
         return
     if is_market_open():
-        check_vwap_signals()
+        if is_market_open():
+    check_vwap_signals()
     else:
         print(f"{datetime.now().strftime('%H:%M:%S')} — Market closed")
 
 print("VWAP Mean Reversion Bot — Starting up")
-check_vwap_signals()
+if is_market_open():
+    check_vwap_signals()
 
 schedule.every(15).minutes.do(run_if_market_open)
 
